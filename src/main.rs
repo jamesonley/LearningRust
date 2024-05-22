@@ -9,7 +9,7 @@
 }
 */
 
-impl Accumulator {
+impl Accumulator(){
     fn get(self) -> i32 {
         self.sum;
     }
@@ -25,3 +25,4 @@ fn main() {
 
     println!("acc = {}", acc.get());
 }
+ 
