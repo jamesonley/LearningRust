@@ -100,7 +100,38 @@ fn main() {
         println!("{}", some_integer);
     }
 
-    
+    println!("\n\n Return Values and Scopes --------------------------------------\n");
+
+        {
+            let s1 = gives_ownership();
+            let s2 = String::from("hello");
+            let s3 = takes_and_gives_back(s2);
+
+            // println!("{}", s2); // s2 is no longer valid.
+
+            // s2 is moved into takes_and_gives_back and the moved into s3
+        }
+
+        fn gives_ownership() -> String {
+            let some_string = String::from("yours");
+            some_string
+        }
+
+        fn takes_and_gives_back(a_string: String) -> String  {
+            a_string
+        }
 
 
+        // To use a value again when it's fed to a function it must also be returned. 
+
+        {
+            let s1 = String::from("hello");
+            let(s2, len) = calculate_length(s1);
+            println!("The length of '{}' is {}.", s2, len);
+            // We fed in s1 and then brought it back as s2. 
+        }
+        fn calculate_length(s:String)-> (String, usize){
+            let length = s.len();
+            (s, length)
+        }
 }
