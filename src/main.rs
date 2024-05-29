@@ -123,7 +123,7 @@ fn main() {
 
 
         // To use a value again when it's fed to a function it must also be returned. 
-
+/* 
         {
             let s1 = String::from("hello");
             let(s2, len) = calculate_length(s1);
@@ -134,4 +134,83 @@ fn main() {
             let length = s.len();
             (s, length)
         }
+*/
+
+        println!("\n\n References and Borrowing --------------------------------------\n");
+
+        {
+            let s1 = String::from("hello");
+            let len = calculate_length(&s1);
+
+            // The & means passing by reference. The ownership of s1 is not moved. 
+
+            println!("The length of '{}' is {}.", s1, len);
+        }
+
+        fn calculate_length(s: &String)-> usize {
+            s.len() // Have to remember to leave off the semi colon for return values in Rust. 
+        }
+
+        // This concept of referencing also prevents the double free situation. Although &s1 points to the same value as s1,
+        // it does not assume responsibility for removing it from the Heap. That is still s1's job. 
+
+        // The action of creating a reference is called borrowing. Borrowers don't have Heap clearing responsibility. 
+
+        /* 
+        { 
+            let s = String::from("hello");
+            change (&s);
+        }
+        fn change( some_string: &String) {
+            some_string.push_str(",world");
+        }
+        */
+        // The change function can't modify the borrowed value. The compiler gives an error. References are immutable. 
+
+        println!("\n\nMutable References --------------------------------------\n");
+
+        {
+            let mut s = String::from("hello");
+            change(&mut s);
+            println!("{}", s);
+
+            // The &mut keyword means that change will alter the value it's borrowing.
+
+        }
+        
+        fn change(some_string: &mut String){
+            some_string.push_str(", world");
+        }
+
+        /* let mut s = String::from("hello");
+
+        let r1 = &mut s;
+        let r2 = &mut s;
+
+        println!("{},{}", r1, r2);
+        */
+
+        // You can't burrow a value twice if it's mutable. The above code won't compile. 
+        // This prevents data races at compile time. Data races can cause undefined behavior in code. 
+
+        let mut s = String::from("hello, no race");
+        {
+            let r1 = &mut s;
+        }
+        let r2 = &mut s;
+
+        println!("{}", r2);
+
+        // Multiple burrows can be made in separate scopes. Just not together in the same scope.
+
+        let mut s = String::from("hello");
+        let r1 = &s;
+        let r2 = &s;
+        //let r3 = &mut s; // Can't borrow s as mutable (changeable) because it's already borrowed in the same scope as immutable.
+
+        println!("{},{}", r1, r2);
+
+        println!("\n\nDangling References --------------------------------------\n");
+
+        
 }
