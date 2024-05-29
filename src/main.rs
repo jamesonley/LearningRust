@@ -242,5 +242,37 @@ fn main() {
         let world = &s[6..];
         println!("{}:{}", hello, world);
 
-        
+        println!("\n\nChapter 5--------------------------------------\n");
+
+        println!("\n\n Defining and Instantiating Structs --------------------------------------\n");
+
+        struct User {
+            active: bool,
+            username: String,
+            email: String, 
+            sign_in_count: u64,
+        }
+
+        {
+            let user1 = User {
+                active: true,
+                username: String::from("someusername123"),
+                email: String::from("someone@example.com"),
+                sign_in_count: 1, 
+            };
+
+            println!("Account Active: {}", user1.active);
+
+            fn build_user(email: String, username: String) -> User {
+                User {
+                    active: true, 
+                    username: username,
+                    email: email, 
+                    sign_in_count: 1, 
+                }
+            }
+
+            let test_user = build_user(String::from("sample@test.com"), String::from("samplePerson"));
+            println!("Email Address: {}", test_user.email);
+        }
 }
