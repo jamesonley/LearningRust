@@ -212,5 +212,24 @@ fn main() {
 
         println!("\n\nDangling References --------------------------------------\n");
 
-        
+        /* 
+        {
+            let referece_to_nothing = dangle();
+        }
+        fn dangle() -> &String{
+            let s = String::from("hello");
+
+            &s // This part returns a reference to s. But the scope of s ends after dangle is complete. This means 
+               // that the reference is now pointing to nothing. Rust sees this possibility and blocks it at compile time.
+        }
+
+        */
+
+        fn no_dangle() -> String {
+            let s = String::from("hello");
+            s // This is ok because the ownership is being tranferred out of the scope. 
+        }
+
+        let new_s = no_dangle();
+        println!("{}", new_s);
 }
