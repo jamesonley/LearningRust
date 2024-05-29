@@ -232,4 +232,21 @@ fn main() {
 
         let new_s = no_dangle();
         println!("{}", new_s);
+
+        println!("\n\nSlice Types --------------------------------------\n");
+
+        // A slice references a sequence of elements in a collection. It does not have ownership. 
+
+        fn first_words(s:&String) -> usize {
+            let bytes = s.as_bytes();
+
+            for (i, &item) in bytes.iter().enumerate(){
+                if item == b' ' {
+                    return i;
+                }
+            }
+            s.len()
+        }
+
+        
 }
