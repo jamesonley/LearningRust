@@ -275,4 +275,177 @@ fn main() {
             let test_user = build_user(String::from("sample@test.com"), String::from("samplePerson"));
             println!("Email Address: {}", test_user.email);
         }
+
+        {
+            fn build_user(email: String, username: String) -> User {
+                User {
+                    active: true, 
+                    username: username,
+                    email: email, 
+                    sign_in_count: 1, 
+                }
+            }
+
+            let user1 = build_user(String::from("someuser@email.com"), String::from("someuser"));
+            let user2 = User {
+                active: user1.active,
+                username: user1.username, 
+                email: String::from("another@example.com"),
+                sign_in_count: user1.sign_in_count,
+            };
+
+            println!("{}", user2.active);
+        }
+
+        {
+            struct Color(i32, i32, i32);
+            struct Point(i32, i32, i32);
+
+ 
+            let black = Color(1, 0, 0);
+            let origin = Point(1, 0, 0);
+            
+            println!("{}",black.0)
+        }
+
+        println!("\n\n An Example Program Using Structs --------------------------------------\n");
+
+        // Without tuple
+        {
+            let width1 = 30;
+            let height1 = 50; 
+
+            println!("The area of the rectangle is {} square pixels.", area(width1, height1));
+
+            fn area(width: u32, height: u32) -> u32 {
+                width * height
+            }
+        }
+
+        //With tuple
+        {
+            let rect1 = (30, 50);
+
+            println!( "The area of the rectangle is {} square pixels", area(rect1)
+            );
+
+            fn area(dimensions: (u32, u32)) -> u32 {
+                dimensions.0 * dimensions.1
+            }
+        }
+
+        // With Struct
+        
+        #[derive(Debug)]
+        struct Rectangle {
+            width: u32,
+            height: u32,
+        }
+
+        {
+            let rect1 = Rectangle {
+                width: 30, 
+                height: 50,
+            };
+
+            println!(
+                "The area of the rectangle is {} square pixels.", area(&rect1)
+            );
+
+            dbg!(&rect1);
+        }
+
+        fn area(rectangle: &Rectangle) -> u32 {
+            rectangle.width * rectangle.height
+        }
+
+        println!("\n\n Chapter 6: Enums and Pattern Matching  --------------------------------------\n");
+/*
+        {
+            enum IpAddrKind{
+                V4, 
+                V6
+            }
+
+            let four = IpAddrKind::V4;
+            let six = IpAddrKind::V6;
+
+            enum Option<T> {
+                None, 
+                Some(T),
+            }
+
+            let absent_number: Option<i32> = None;
+        }
+*/
+
+        println!("\n\n match Control Flow Construct --------------------------------------\n");
+
+        {
+            enum Coin {
+                Penny, 
+                Nickel, 
+                Dime, 
+                Quarter,
+            }
+
+            fn value_in_cents(coin:Coin) -> u8 {
+                match coin {
+                    Coin::Penny => 1,
+                    Coin::Nickel => 5, 
+                    Coin::Dime => 10,
+                    Coin::Quarter => 25,
+                }
+            }
+
+            let change = Coin::Dime;
+            let value = value_in_cents(change);
+            println!("{}", value);
+        }
+
+        {
+            #[derive(Debug)]
+            enum UsState{
+                Alabama, 
+                Alaska,
+                NewYork
+            }
+            enum Coin {
+                Penny, 
+                Nickel, 
+                Dime, 
+                Quarter (UsState),
+            }
+
+            fn values_incents2(coin: Coin) -> u8 {
+                match coin {
+                    Coin::Penny => 1,
+                    Coin::Nickel => 5, 
+                    Coin::Dime => 10, 
+                    Coin::Quarter(state) => {
+                        println!("State quarter from {:?}!", state);
+                        25
+                    }
+                }
+            }
+            let change = Coin::Quarter(UsState::NewYork);
+
+            println!("{}", values_incents2(change));
+        }
+
+        println!("\n\n matching with option<t> --------------------------------------\n");
+        {
+            fn plus_one(x: Option<i32>) -> Option<i32> {
+                match x {
+                    None => None, 
+                    Some(i) => Some(i + 1),  
+                }
+            }
+            
+            plus_one(10);
+ 
+    
+ 
+        }
+
 }
