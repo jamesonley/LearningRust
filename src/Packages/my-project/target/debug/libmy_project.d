@@ -1,0 +1,1 @@
+/home/neverquit/Documents/Learning\ Projects/Learning\ Rust/LearningRust/src/Packages/my-project/target/debug/libmy_project.rlib: /home/neverquit/Documents/Learning\ Projects/Learning\ Rust/LearningRust/src/Packages/my-project/src/lib.rs
